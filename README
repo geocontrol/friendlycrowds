@@ -1,0 +1,11 @@
+This is a project to build a simple, extensible social type layer that works over stuff. Making use of existing tools, and being designed initially as an experiment in mongoDB and some mobile app interface building.
+
+Going to use:
+
+* Ruby On Rails (3.0.4)
+* mongoDB
+
+iOS Client
+* Possibly use PhoneGap
+
+
