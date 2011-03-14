@@ -1,8 +1,13 @@
 class QuestionsController < ApplicationController
+  before_filter :authenticate
+  
+  # Only display to an authenticated user
+  
+  # List the questions for a user
   # GET /questions
   # GET /questions.xml
   def index
-    @questions = Question.all
+    @questions = Question.find(:all, :conditions => { :user_id => session[:user_id] })
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +46,7 @@ class QuestionsController < ApplicationController
   # POST /questions.xml
   def create
     @question = Question.new(params[:question])
+    @question[:user_id] = session[:user_id]
 
     respond_to do |format|
       if @question.save
@@ -80,4 +86,13 @@ class QuestionsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  private
+  
+    def authenticate
+      deny_access unless signed_in?
+    end
+    
+    
+  
 end
