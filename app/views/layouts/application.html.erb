@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Friendlycrowds</title>
-  <%= stylesheet_link_tag :all %>
-  <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
-  <%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
+  <title><%= title %></title>
   <%= csrf_meta_tag %>
+  <%= render 'layouts/stylesheets' %>
 </head>
 <body>
-	<% if current_user %>
-	  Welcome <%= current_user.name %>!
-	  <%= link_to "Sign Out", signout_path %>
-	<% else %>
-	  <%= link_to "Sign in with Twitter", "/auth/twitter" %>
-	<% end %>
+	<div class="comtainer">
+		<%= render 'layouts/header' %>
+		<section class="round">
+    		<% flash.each do |name, msg| %>
+      			<%= content_tag :div, msg, :id => "flash_#{name}" %>
+    		<% end %>
 
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
-    <% end %>
-
-	<%= yield %>
+			<%= yield %>
+		</section>
 	<%= render 'layouts/footer' %>
 	<%= debug(params) if Rails.env.development? %>
 </body>
